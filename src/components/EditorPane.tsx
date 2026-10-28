@@ -57,10 +57,10 @@ export default function EditorPane({
         <div className="flex-1 px-4 py-3">
           <div className="text-gray-500">{"// " + starterLine}</div>
           <div className="pl-4 text-gray-600">{"// TODO: implement me"}</div>
+          {/* Monaco Editor will be integrated in Sprint 2 */}
         </div>
       </div>
 
-      {/* Monaco Editor will be integrated in Sprint 2 */}
     </div>
   );
 }
