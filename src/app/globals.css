@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CodeNexus is dark-mode only (LeetCode-style). */
+:root {
+  --foreground-rgb: 209, 213, 219; /* gray-300 */
+  --background-rgb: 3, 7, 18; /* gray-950 */
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+}
+
+/* Slim dark scrollbars to match the theme */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgb(55 65 81); /* gray-700 */
+  border-radius: 4px;
+}
