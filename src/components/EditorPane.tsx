@@ -7,10 +7,27 @@ export interface EditorPaneProps {
   lineCount?: number;
 }
 
-const STARTER_SNIPPETS: Record<string, string> = {
-  Python: "class Solution:",
-  C: "int* twoSum(int* nums, int numsSize, int target, int* returnSize) {",
-  SQL: "SELECT num, name FROM problems",
+const STARTER_SNIPPETS: Record<string, readonly string[]> = {
+  Python: [
+    "class Solution:",
+    "    def twoSum(self, nums: list[int], target: int) -> list[int]:",
+    "        # TODO: implement me",
+    "        pass",
+  ],
+  C: [
+    "int* twoSum(int* nums, int numsSize, int target,",
+    "            int* returnSize) {",
+    "    // TODO: implement me",
+    "    *returnSize = 2;",
+    "    return NULL;",
+    "}",
+  ],
+  SQL: [
+    "-- TODO: implement me",
+    "SELECT num, name",
+    "FROM problems",
+    "WHERE difficulty = 'Easy';",
+  ],
 };
 
 /**
@@ -21,8 +38,8 @@ export default function EditorPane({
   language,
   lineCount = 16,
 }: EditorPaneProps) {
-  const starterLine =
-    STARTER_SNIPPETS[language] ?? "// Write your solution here";
+  const snippet: readonly string[] =
+    STARTER_SNIPPETS[language] ?? ["// Write your solution here"];
   const lines: number[] = Array.from(
     { length: lineCount },
     (_, index) => index + 1,
@@ -54,13 +71,25 @@ export default function EditorPane({
         </div>
 
         {/* Code area */}
-        <div className="flex-1 px-4 py-3">
-          <div className="text-gray-500">{"// " + starterLine}</div>
-          <div className="pl-4 text-gray-600">{"// TODO: implement me"}</div>
+        <div className="min-w-0 flex-1 overflow-x-auto px-4 py-3">
+          {snippet.map((line, index) => (
+            <div
+              key={`${language}-${index}`}
+              className={
+                line.trimStart().startsWith("#") ||
+                line.trimStart().startsWith("--") ||
+                line.trimStart().startsWith("//")
+                  ? "whitespace-pre text-gray-500"
+                  : "whitespace-pre text-gray-300"
+              }
+            >
+              {line}
+            </div>
+          ))}
+          {/* Monaco Editor will be integrated in Sprint 2 */}
         </div>
       </div>
 
-      {/* Monaco Editor will be integrated in Sprint 2 */}
     </div>
   );
 }

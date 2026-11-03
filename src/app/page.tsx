@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import EditorPane from "@/components/EditorPane";
 import ProblemDescription, {
   GamificationStats,
@@ -61,6 +64,12 @@ const CONSOLE_LINES: readonly string[] = [
 ];
 
 export default function Home() {
+  // Sprint 1: language is shared demo state so the TopBar dropdown drives the
+  // editor placeholder snippet. The Run/Submit handlers are visual-only stubs.
+  const [selectedLanguage, setSelectedLanguage] = useState<string>(
+    LANGUAGES[0],
+  );
+
   return (
     <main className="flex h-screen flex-col bg-gray-950 text-gray-300">
       {/* 1. Top navigation bar (56px) */}
@@ -68,6 +77,8 @@ export default function Home() {
         problemTitle={PROBLEM_TITLE}
         difficulty={DIFFICULTY}
         languages={LANGUAGES}
+        selectedLanguage={selectedLanguage}
+        onLanguageChange={setSelectedLanguage}
       />
 
       {/* 2. Main content area – row on desktop, stacked column below 768px */}
@@ -85,7 +96,7 @@ export default function Home() {
         {/* RIGHT PANEL (60% width on desktop) */}
         <div className="flex w-full shrink-0 flex-col md:h-full md:w-3/5 md:shrink">
           {/* TOP 60%: editor placeholder */}
-          <EditorPane language={LANGUAGES[0]} />
+          <EditorPane language={selectedLanguage} />
           {/* BOTTOM 40%: results panel */}
           <ResultsPanel
             tabs={TABS}

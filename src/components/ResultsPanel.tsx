@@ -76,16 +76,29 @@ export default function ResultsPanel({
           ))}
         </div>
 
-        {/* Console output box */}
-        <div className="flex min-h-0 flex-1 flex-col rounded-md border border-gray-800 bg-black p-3">
-          <div className="mb-1.5 flex items-center gap-1.5 text-[10px] uppercase tracking-wide text-gray-500">
-            <Terminal className="h-3.5 w-3.5" />
-            Output
+        {/* Output area – differs per active tab */}
+        {activeTab === "Test Cases" ? (
+          <div className="flex min-h-0 flex-1 flex-col rounded-md border border-gray-800 bg-black p-3">
+            <div className="mb-1.5 text-[10px] uppercase tracking-wide text-gray-500">
+              {testCases.find((testCase) => testCase.id === activeTestCaseId)
+                ?.label ?? "Test case"}{" "}
+              preview
+            </div>
+            <pre className="min-h-0 flex-1 overflow-y-auto whitespace-pre-wrap font-mono text-xs leading-relaxed text-green-500">
+              {consoleLines.join("\n")}
+            </pre>
           </div>
-          <pre className="min-h-0 flex-1 overflow-y-auto whitespace-pre-wrap font-mono text-xs leading-relaxed text-green-500">
-            {consoleLines.join("\n")}
-          </pre>
-        </div>
+        ) : (
+          <div className="flex min-h-0 flex-1 flex-col rounded-md border border-gray-800 bg-black p-3">
+            <div className="mb-1.5 flex items-center gap-1.5 text-[10px] uppercase tracking-wide text-gray-500">
+              <Terminal className="h-3.5 w-3.5" />
+              Console
+            </div>
+            <pre className="min-h-0 flex-1 overflow-y-auto whitespace-pre-wrap font-mono text-xs leading-relaxed text-green-500">
+              {consoleLines.join("\n")}
+            </pre>
+          </div>
+        )}
       </div>
     </div>
   );
