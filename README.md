@@ -24,8 +24,32 @@ placeholder, and results/console panel.
 
 ## Deploy on Vercel
 
-The app is ready for zero-config Vercel deployment — import the repository and
-Vercel will detect the Next.js settings automatically (`next build` / `next start`).
+The app is ready for zero-config Vercel deployment:
+
+1. Publish this repository to GitHub (e.g. the "Publish to GitHub" button).
+2. In Vercel, choose **Add New → Project → Import** the repo.
+3. Vercel auto-detects Next.js (`vercel.json` pins framework/build/install
+   commands explicitly). No environment variables are required. Click **Deploy**.
+
+Or from the terminal:
+
+```bash
+npm i -g vercel
+vercel --prod
+```
+
+A production build is verified with:
+
+```bash
+npm ci && npm run build && npm start
+```
+
+## PWA / branding notes
+
+- `public/icon.svg` + `public/manifest.webmanifest` provide the app icon and
+  theme colors (gray-900 chrome) for installable/PWA contexts.
+- All routes are statically prerendered, so deployments serve instantly from
+  Vercel's edge CDN.
 
 ## Roadmap
 
